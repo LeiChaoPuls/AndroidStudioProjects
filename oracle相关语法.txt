@@ -1,0 +1,91 @@
+//创建表
+CREATE TABLE USERS
+(ID NUMBER(4) PRIMARY KEY,
+NAME NVARCHAR2(50) NOT NULL,
+PASSWORD NVARCHAR2(50),
+TELEPHONE NVARCHAR2(50),
+USERNAME NVARCHAR2(50),
+ISADMIN NVARCHAR2(5)
+);
+
+//添加主键
+ALTER TABLE dept
+ADD CONSTRAINT PK_deptno primary key(deptno);
+
+//添加外键
+ALTER TABLE employee
+ADD CONSTRAINT FK_deptno
+FOREIGN KEY(deptno) REFERENCES dept (deptno);
+
+//添加字段
+ALTER TABLE employee
+ADD (empTel_no VARCHAR2(12),
+     empAddress VARCHAR2(20));
+	 
+
+//删除字段
+ALTER TABLE employee
+DROP(empTel_no,empAddress);	
+
+
+//查询外边数据插入本表
+INSERT INTO employee
+SELECT * FROM SCOTT.emp; 
+
+//应用外表数据新建表
+CREATE TABLE employee
+as
+SELECT * FROM SCOTT.emp;
+
+
+//解锁用户
+alter user 用户名 account unlock;
+
+//解定用户
+alter user 用户名 account lock;
+
+//修改用户密码
+alter user 用户名 identified by 新密码;
+
+---修改字段名
+alter table USERS rename column IDADMIN to ISADMIN;	 
+
+---删除外键
+ALTER TABLE HOUSE DROP CONSTRAINT FK_STREET_ID;
+
+--查询当前用户的所有表
+select table_name from user_tables;
+
+--所有用户的表
+select table_name from all_tables; 
+
+--所有用户的表（包括系统表）
+select table_name from dba_tables where owner='用户名'
+
+
+//插入数据
+INSERT INTO table_name
+(column1,column2...)
+VALUES(value1,value2,...)
+
+
+//修改数据
+update Emp set HIREDATEEND=TO_DATE('2018-12-6','yyyy-mm-dd') where EMPNO=7654;
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
