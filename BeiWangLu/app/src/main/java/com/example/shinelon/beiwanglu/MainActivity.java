@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.shinelon.beiwanglu.util.MyFormat.myDateFormat;
-import static com.example.shinelon.beiwanglu.util.MyFormat.*;
+import static com.example.shinelon.beiwanglu.util.Format.myDateFormat;
+import static com.example.shinelon.beiwanglu.util.Format.*;
 
 
 

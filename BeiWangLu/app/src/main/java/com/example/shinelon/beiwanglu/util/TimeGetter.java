@@ -13,7 +13,7 @@ import java.util.Date;
  * @description
  * @date 2018/12/3 17:19
  */
-public class MyTimeGetter {
+public class TimeGetter {
 
     private int year;
     private int month;
@@ -21,9 +21,9 @@ public class MyTimeGetter {
     private int hour;
     private int minute;
 
-    public MyTimeGetter(){}
+    public TimeGetter(){}
 
-    public MyTimeGetter(Date date){
+    public TimeGetter(Date date){
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
         String strDate = dateFormat.format(date);

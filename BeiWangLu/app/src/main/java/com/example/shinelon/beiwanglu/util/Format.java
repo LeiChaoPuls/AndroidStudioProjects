@@ -2,7 +2,6 @@ package com.example.shinelon.beiwanglu.util;
 
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.text.ParseException;
@@ -17,7 +16,7 @@ import java.util.Date;
  * @description 一个格式化类，目前只添加了时分秒的格式化(8:1:15->08:01:15)、日期与字符串互转的格式化操作
  * @date 2018/12/3 11:22
  */
-public class MyFormat {
+public class Format {
     /**
      * 拼接并格式化时间 HH:mm:ss
      * @param hour
@@ -205,8 +204,8 @@ public class MyFormat {
      *  去除规则，如果年份是当年
      */
     public static String getTimeStr(Date date){
-        int nowYear = new MyTimeGetter(new Date(System.currentTimeMillis())).getYear();
-        int targetYear = new MyTimeGetter(date).getYear();
+        int nowYear = new TimeGetter(new Date(System.currentTimeMillis())).getYear();
+        int targetYear = new TimeGetter(date).getYear();
         if (nowYear == targetYear){
             //  去除年份
             return myDateFormat(date,DateFormatType.REMOVE_YEAR_TIME);

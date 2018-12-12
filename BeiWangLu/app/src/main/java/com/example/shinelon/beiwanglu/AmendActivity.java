@@ -24,11 +24,6 @@ import com.example.shinelon.beiwanglu.entity.Record;
 
 /**
  * create_by Android Studio
- *
- * @author zouguo0212@
- * @package_name fun.zzti
- * @description
- * @date 2018/10/27 13:20
  */
 public class AmendActivity extends BaseActivity implements View.OnClickListener{
 
@@ -42,9 +37,6 @@ public class AmendActivity extends BaseActivity implements View.OnClickListener{
     private EditText amendBody;
     private Record record;
     private AlertDialog.Builder dialog;
-
-    private Button btnUpcoming;
-    private Button btnNotice;
 
 
     @Override
@@ -69,12 +61,6 @@ public class AmendActivity extends BaseActivity implements View.OnClickListener{
             case R.id.button_back:
                 showDialog(body);
                 clearDialog();
-                break;
-            case R.id.btn_amend_menu_notice:
-                Log.i("AmendActivity","这是修改页面的提醒按钮被点击");
-                break;
-            case R.id.btn_amend_menu_upcoming:
-                Log.i("AmendActivity","这是修改页面的待办按钮被点击");
                 break;
             default:
                 break;
@@ -106,14 +92,7 @@ public class AmendActivity extends BaseActivity implements View.OnClickListener{
         amendBody = findViewById(R.id.amend_body);
         amendTime = findViewById(R.id.amend_title_time);
 
-        btnUpcoming = findViewById(R.id.btn_amend_menu_upcoming);
-        btnNotice = findViewById(R.id.btn_amend_menu_notice);
-
-        btnSave.setOnClickListener(this);
         btnBack.setOnClickListener(this);
-
-        btnNotice.setOnClickListener(this);
-        btnUpcoming.setOnClickListener(this);
 
         Intent intent = this.getIntent();
         if (intent!=null){
@@ -179,26 +158,7 @@ public class AmendActivity extends BaseActivity implements View.OnClickListener{
      * @param createDate
      */
     void showDialog(final String body){
-        dialog = new AlertDialog.Builder(AmendActivity.this);
-        dialog.setTitle("提示");
-        dialog.setMessage("是否保存当前编辑内容");
-        dialog.setPositiveButton("保存",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        updateFunction(body);
-                        intentStart();
-                    }
-                });
-
-        dialog.setNegativeButton("取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        intentStart();
-                    }
-                });
-        dialog.show();
+        intentStart();
     }
 
     void clearDialog(){

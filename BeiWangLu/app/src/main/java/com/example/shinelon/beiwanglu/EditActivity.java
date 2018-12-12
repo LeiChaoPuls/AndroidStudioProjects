@@ -24,14 +24,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.shinelon.beiwanglu.database.MyDB;
-import com.example.shinelon.beiwanglu.util.MyFormat;
-import com.example.shinelon.beiwanglu.util.MyTimeGetter;
+import com.example.shinelon.beiwanglu.util.Format;
+import com.example.shinelon.beiwanglu.util.TimeGetter;
 import com.example.shinelon.beiwanglu.util.DateFormatType;
 
-import java.text.Format;
 import java.util.Date;
 
-import static com.example.shinelon.beiwanglu.util.MyFormat.*;
+import static com.example.shinelon.beiwanglu.util.Format.*;
 
 /**
  * create_by Android Studio
@@ -71,7 +70,7 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
     private Integer minute;
     private boolean timeSetTag;
 
-    MyTimeGetter myTimeGetter;
+    TimeGetter timeGetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,14 +92,10 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
         editBody = findViewById(R.id.edit_body);
         editTime = findViewById(R.id.edit_title_time);
 
-        btnUpcoming = findViewById(R.id.btn_edit_menu_upcoming);
-        btnNotice = findViewById(R.id.btn_edit_menu_notice);
 
         btnSave.setOnClickListener(this);
         btnBack.setOnClickListener(this);
 
-        btnUpcoming.setOnClickListener(this);
-        btnNotice.setOnClickListener(this);
 
         Date date = new Date(System.currentTimeMillis());
         createDate = myDateFormat(date,DateFormatType.NORMAL_TIME);
@@ -166,16 +161,6 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
                     intentStart();
                 }
                 break;
-            case R.id.btn_edit_menu_notice:
-                if (timeSetTag){
-                    //  已经设置过提醒时间，询问是否修改
-                    showAskDialog();
-                } else {
-                    setNoticeDate();
-                }
-                break;
-            case R.id.btn_edit_menu_upcoming:
-                break;
             default:
                 break;
         }
@@ -228,7 +213,7 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
                 String str = datePicker.getYear()+"-"+
                         (datePicker.getMonth()+1)+"-"+
                         datePicker.getDayOfMonth()+" "+
-                        MyFormat.timeFormat(hour,minute);
+                        Format.timeFormat(hour,minute);
                 values.put(MyDB.NOTICE_TIME,str);
             }
             db.insert(MyDB.TABLE_NAME_RECORD,null,values);
@@ -295,7 +280,7 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
         String str = datePicker.getYear()+"年"+
                 (datePicker.getMonth()+1)+"月"+
                 datePicker.getDayOfMonth()+"日"+
-                " "+ MyFormat.timeFormat(hour,minute);
+                " "+ Format.timeFormat(hour,minute);
         dialog.setMessage("是否修改提醒时间？\n当前提醒时间为:"+str);
         dialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
@@ -338,17 +323,17 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
         this.month = month;
         this.dayOfMonth = dayOfMonth;
 
-        myTimeGetter = new MyTimeGetter(new Date(System.currentTimeMillis()));
+        timeGetter = new TimeGetter(new Date(System.currentTimeMillis()));
         //  取出年月日时分
-        int t_year = myTimeGetter.getYear();
-        int t_month = myTimeGetter.getMonth();
-        int t_dayOfMonth = myTimeGetter.getDay();
+        int t_year = timeGetter.getYear();
+        int t_month = timeGetter.getMonth();
+        int t_dayOfMonth = timeGetter.getDay();
         int paramHour = 8;
         int paramMinute = 0;
         if (t_month==(this.month+1) && t_dayOfMonth==this.dayOfMonth){
-            paramHour = myTimeGetter.getHour();
+            paramHour = timeGetter.getHour();
             //  如果是设置当天提醒，则最小时间显示默认不小于五分钟以内
-            paramMinute = myTimeGetter.getMinute()+5;
+            paramMinute = timeGetter.getMinute()+5;
         }
         dialogTime = new TimePickerDialog(this,
                 android.app.AlertDialog.THEME_HOLO_LIGHT,this,
